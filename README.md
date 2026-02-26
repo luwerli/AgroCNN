@@ -1,84 +1,73 @@
-# 🍊 Detecção Automática de Laranjeiras com YOLOv8
-📌 Descrição
+🍊 Automatic Orange Tree Detection using YOLOv8
+Overview
 
-Projeto de detecção automática de árvores de laranja utilizando YOLOv8 (Ultralytics) aplicado a ortomosaicos de alta resolução.
+This project implements a full geospatial deep learning pipeline for automatic orange tree detection from high-resolution orthomosaics.
 
-O pipeline integra:
+It combines computer vision, spatial data engineering, and quantitative evaluation to generate plant-level outputs suitable for Precision Agriculture workflows.
 
-• Processamento geoespacial
+Developed as an undergraduate thesis in Cartographic and Surveying Engineering.
 
-• Deep Learning
+Problem Statement
 
-• Conversão raster ↔ vetor
+Manual plant counting and vigor assessment in large orchards is:
 
-• Extração de métricas espectrais
+Time-consuming
 
-• Avaliação quantitativa de desempenho
+Error-prone
 
-• Desenvolvido como Trabalho de Conclusão de Curso em Engenharia Cartográfica.
+Not scalable
 
-🎯 Objetivo
+This project addresses the problem by integrating object detection with geospatial processing to enable automated, plant-level analysis.
 
-Automatizar a:
+Solution Architecture
 
-• Detecção individual de plantas
+The pipeline is fully automated and consists of:
 
-• Conversão de bounding boxes em geopolígonos
+1. Orthomosaic Tiling
 
-• Geração de raster binário (plantas = 1)
+1024×1024 tiles
 
-• Extração de NDVI por planta
+CRS and affine transform preservation
 
-• Avaliação da performance via IoU
+Overlap to mitigate edge detection loss
 
-• Aplicação direta em Agricultura de Precisão.
+2. Dataset Generation (YOLO Format)
 
-🧠 Arquitetura do Pipeline
-1️⃣ Tiling do ortomosaico
+Conversion of georeferenced polygons into normalized bounding boxes
 
-Corte em tiles 1024x1024
+Automatic label generation
 
-Preservação de CRS e transform
+dataset.yaml creation
 
-Overlap para evitar perdas na borda
+3. Model Training
 
-2️⃣ Criação do Dataset YOLO
+YOLOv8n (Ultralytics)
 
-Conversão de polígonos para bounding boxes normalizadas
+Image size: 640
 
-Geração automática de labels
+GPU-optimized configuration
 
-Criação de dataset.yaml
+4. Inference & Spatial Reconstruction
 
-3️⃣ Treinamento
+Tile-based detection
 
-YOLOv8n
+Bounding box extraction (xyxy format)
 
-imgsz = 640
+Pixel → geographic coordinate transformation
 
-batch ajustado para GPU GTX 1650
+GeoJSON export of detected plants
 
-4️⃣ Inferência
+5. Post-processing
 
-Predição por tile
+Binary raster generation (plants = 1)
 
-Extração de caixas (xyxy)
+Centroid extraction
 
-Conversão pixel → coordenada geográfica
+NDVI computation per detected plant
 
-Geração de GeoJSON
+6. Performance Evaluation
 
-5️⃣ Pós-processamento
-
-Rasterização binária
-
-Cálculo de centróides
-
-Extração de NDVI por planta
-
-6️⃣ Avaliação
-
-Implementação própria de métricas:
+• Custom IoU-based matching implementation providing:
 
 • Precision
 
@@ -90,15 +79,28 @@ Implementação própria de métricas:
 
 • TP, FP, FN
 
-• Matching baseado em IoU com estratégia greedy.
+Matching is performed using a greedy IoU strategy (threshold ≥ 0.5).
 
-🛠 Tecnologias Utilizadas
+**Technical Highlights**
+
+• End-to-end geospatial Deep Learning pipeline
+
+• Raster ↔ vector conversion with CRS consistency
+
+• Pixel-space to coordinate-space transformation
+
+• Custom detection metrics implementation
+
+• Modular and reproducible workflow
+
+
+**Tech Stack**
 
 • Python 3.10+
 
-• Ultralytics YOLOv8
+• PyTorch (GPU acceleration)
 
-• PyTorch (GPU)
+• Ultralytics YOLOv8
 
 • Rasterio
 
@@ -112,49 +114,36 @@ Implementação própria de métricas:
 
 • Matplotlib
 
-▶️ Como Executar
-1️⃣ Instalar dependências
+
+**How to Run**
+Install dependencies
 pip install -r requirements.txt
+Configure input paths
 
-2️⃣ Ajustar caminhos no script
+In __main__:
 
-No bloco __main__, alterar:
-
-ortho_path = "caminho/ortho.tif"
-train_polygons = "caminho/treino.geojson"
-
-3️⃣ Rodar pipeline completo
+ortho_path = "path/to/orthomosaic.tif"
+train_polygons = "path/to/training_data.geojson"
+Execute full pipeline
 python script_detect.py
 
-📈 Métricas de Avaliação
 
-As métricas são calculadas com base em IoU ≥ 0.5:
+**Applications**
 
-Precision = TP / (TP + FP)
+• Automated orchard inventory
 
-Recall = TP / (TP + FN)
+• Detection of planting gaps
 
-F1-score
+• Vegetation vigour monitoring
 
-Mean IoU
+• Spatial analytics for yield planning
 
-Implementação própria sem uso de biblioteca externa para matching.
+• Precision Agriculture decision support
 
-🌱 Aplicações no Agronegócio
 
-Contagem automatizada de plantas
-
-Monitoramento de falhas de plantio
-
-Avaliação de vigor vegetal
-
-Planejamento de colheita
-
-Agricultura de precisão
-
-👩‍💻 Autores
+**Authors**
 
 Luiza Werli Rosa
 Thiago Wallace Nascimento da Paz
-Engenharia Cartográfica e de Agrimensura
-Ciência de Dados Geoespacial aplicada ao Agro
+
+Geospatial Data Science applied to Agriculture
