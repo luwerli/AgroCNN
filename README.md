@@ -1,77 +1,113 @@
-# AgroCNN: Detecção Automática de Laranjeiras e Análise de Vigor Vegetativo
-
+# 🍊 Detecção Automática de Laranjeiras com YOLOv8
 📌 Descrição
 
-Projeto desenvolvido como Trabalho de Conclusão de Curso com foco na aplicação de Machine Learning e Deep Learning para detecção automática de árvores de laranja a partir de imagens aéreas, além da geração de mapas de vigor vegetal utilizando índices espectrais.
+Projeto de detecção automática de árvores de laranja utilizando YOLOv8 (Ultralytics) aplicado a ortomosaicos de alta resolução.
 
-O sistema permite:
+O pipeline integra:
 
-• Identificação individualizada de plantas
-• Cálculo de NDVI e NDRE por árvore
-• Geração de mapas temáticos para suporte à tomada de decisão agrícola
+• Processamento geoespacial
 
-🎯 Problema
+• Deep Learning
 
-A contagem manual e avaliação de vigor de plantas em grandes áreas é:
-
-Demorada;
-
-Sujeita a erro humano;
-
-E pouco escalável
-
-Este projeto busca automatizar:
-
-• Detecção de copas
+• Conversão raster ↔ vetor
 
 • Extração de métricas espectrais
 
-• Estruturação de dados por planta
+• Avaliação quantitativa de desempenho
 
-🧠 Metodologia
+• Desenvolvido como Trabalho de Conclusão de Curso em Engenharia Cartográfica.
 
-O pipeline inclui:
+🎯 Objetivo
 
-• Pré-processamento das imagens aéreas
+Automatizar a:
 
-• Treinamento de modelo de Deep Learning para detecção
+• Detecção individual de plantas
 
-• Extração das bounding boxes
+• Conversão de bounding boxes em geopolígonos
 
-• Conversão para geometria espacial
+• Geração de raster binário (plantas = 1)
 
-• Cálculo de índices espectrais:
-  NDVI
-  NDRE
+• Extração de NDVI por planta
 
-• Geração de shapefile com atributos por planta
+• Avaliação da performance via IoU
 
-• Análise estatística dos resultados
+• Aplicação direta em Agricultura de Precisão.
+
+🧠 Arquitetura do Pipeline
+1️⃣ Tiling do ortomosaico
+
+Corte em tiles 1024x1024
+
+Preservação de CRS e transform
+
+Overlap para evitar perdas na borda
+
+2️⃣ Criação do Dataset YOLO
+
+Conversão de polígonos para bounding boxes normalizadas
+
+Geração automática de labels
+
+Criação de dataset.yaml
+
+3️⃣ Treinamento
+
+YOLOv8n
+
+imgsz = 640
+
+batch ajustado para GPU GTX 1650
+
+4️⃣ Inferência
+
+Predição por tile
+
+Extração de caixas (xyxy)
+
+Conversão pixel → coordenada geográfica
+
+Geração de GeoJSON
+
+5️⃣ Pós-processamento
+
+Rasterização binária
+
+Cálculo de centróides
+
+Extração de NDVI por planta
+
+6️⃣ Avaliação
+
+Implementação própria de métricas:
+
+• Precision
+
+• Recall
+
+• F1-score
+
+• Mean IoU
+
+• TP, FP, FN
+
+• Matching baseado em IoU com estratégia greedy.
 
 🛠 Tecnologias Utilizadas
 
-• Python
+• Python 3.10+
 
-• Pandas
+• Ultralytics YOLOv8
+
+• PyTorch (GPU)
+
+• Rasterio
 
 • GeoPandas
 
-• NumPy
+• Shapely
 
-• Rasterio
+• NumPy
 
 • GDAL
 
 • Matplotlib
-
-• TensorFlow
-
-📊 Resultados
-
-• Detecção automatizada das plantas
-
-• Estruturação de banco espacial por indivíduo
-
-• Mapas de vigor vegetal
-
-• Redução significativa do tempo de análise
