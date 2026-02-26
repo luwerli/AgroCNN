@@ -29,55 +29,53 @@ The pipeline is fully automated and consists of:
 
 **1. Orthomosaic Tiling**
 
-• 1024×1024 tiles
+- 1024×1024 tiles
 
-• CRS and affine transform preservation
+- CRS and affine transform preservation
 
-• Overlap to mitigate edge detection loss
+- Overlap to mitigate edge detection loss
 
 2. Dataset Generation (YOLO Format)
 
-• Conversion of georeferenced polygons into normalized bounding boxes
+- Conversion of georeferenced polygons into normalized bounding boxes
 
-• Automatic label generation
+- Automatic label generation
 
-• dataset.yaml creation
+- dataset.yaml creation
 
 3. Model Training
 
-• YOLOv8n (Ultralytics)
+- YOLOv8n (Ultralytics)
 
-• Image size: 640
+- Image size: 640
 
-• GPU-optimized configuration
+- GPU-optimized configuration
 
 **4. Inference & Spatial Reconstruction**
 
-• Tile-based detection
+- Tile-based detection
 
-• Bounding box extraction (xyxy format)
+- Bounding box extraction (xyxy format)
 
-• Pixel → geographic coordinate transformation
+- Pixel → geographic coordinate transformation
 
-• GeoJSON export of detected plants
+- GeoJSON export of detected plants
 
 **5. Post-processing**
 
-• Binary raster generation (plants = 1)
-
-• Centroid extraction
-
-• NDVI computation per detected plant
+- Binary raster generation (plants = 1)
+- Centroid extraction
+- NDVI computation per detected plant
 
 **6. Performance Evaluation**
 
-• Custom IoU-based matching implementation providing:
+- Custom IoU-based matching implementation providing:
 
-• Precision
+- Precision
 
-• Recall
+- Recall
 
-• F1-score
+- F1-score
 
 • Mean IoU
 
