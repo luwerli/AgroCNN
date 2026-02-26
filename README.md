@@ -64,7 +64,7 @@ O pipeline inclui:
 
 • Matplotlib
 
-(colocar framework de DL se usou, ex: PyTorch ou TensorFlow)
+• TensorFlow
 
 📊 Resultados
 
