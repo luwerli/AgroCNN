@@ -7,17 +7,21 @@ It combines computer vision, spatial data engineering, and quantitative evaluati
 
 Developed as an undergraduate thesis in Cartographic and Surveying Engineering.
 
+---
+
 **Problem Statement**
 
 Manual plant counting and vigor assessment in large orchards is:
 
-• Time-consuming
+- Time-consuming
 
-• Error-prone
+- Error-prone
 
-• Not scalable
+- Not scalable
 
 This project addresses the problem by integrating object detection with geospatial processing to enable automated, plant-level analysis.
+
+---
 
 **Solution Architecture**
 
