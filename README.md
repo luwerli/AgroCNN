@@ -111,3 +111,50 @@ Implementação própria de métricas:
 • GDAL
 
 • Matplotlib
+
+▶️ Como Executar
+1️⃣ Instalar dependências
+pip install -r requirements.txt
+
+2️⃣ Ajustar caminhos no script
+
+No bloco __main__, alterar:
+
+ortho_path = "caminho/ortho.tif"
+train_polygons = "caminho/treino.geojson"
+
+3️⃣ Rodar pipeline completo
+python script_detect.py
+
+📈 Métricas de Avaliação
+
+As métricas são calculadas com base em IoU ≥ 0.5:
+
+Precision = TP / (TP + FP)
+
+Recall = TP / (TP + FN)
+
+F1-score
+
+Mean IoU
+
+Implementação própria sem uso de biblioteca externa para matching.
+
+🌱 Aplicações no Agronegócio
+
+Contagem automatizada de plantas
+
+Monitoramento de falhas de plantio
+
+Avaliação de vigor vegetal
+
+Planejamento de colheita
+
+Agricultura de precisão
+
+👩‍💻 Autores
+
+Luiza Werli Rosa
+Thiago Wallace Nascimento da Paz
+Engenharia Cartográfica e de Agrimensura
+Ciência de Dados Geoespacial aplicada ao Agro
