@@ -1,5 +1,5 @@
-🍊 Automatic Orange Tree Detection using YOLOv8
-Overview
+# 🍊 Automatic Orange Tree Detection using YOLOv8
+**Overview**
 
 This project implements a full geospatial deep learning pipeline for automatic orange tree detection from high-resolution orthomosaics.
 
@@ -7,65 +7,65 @@ It combines computer vision, spatial data engineering, and quantitative evaluati
 
 Developed as an undergraduate thesis in Cartographic and Surveying Engineering.
 
-Problem Statement
+**Problem Statement**
 
 Manual plant counting and vigor assessment in large orchards is:
 
-Time-consuming
+• Time-consuming
 
-Error-prone
+• Error-prone
 
-Not scalable
+• Not scalable
 
 This project addresses the problem by integrating object detection with geospatial processing to enable automated, plant-level analysis.
 
-Solution Architecture
+**Solution Architecture**
 
 The pipeline is fully automated and consists of:
 
-1. Orthomosaic Tiling
+**1. Orthomosaic Tiling**
 
-1024×1024 tiles
+• 1024×1024 tiles
 
-CRS and affine transform preservation
+• CRS and affine transform preservation
 
-Overlap to mitigate edge detection loss
+• Overlap to mitigate edge detection loss
 
 2. Dataset Generation (YOLO Format)
 
-Conversion of georeferenced polygons into normalized bounding boxes
+• Conversion of georeferenced polygons into normalized bounding boxes
 
-Automatic label generation
+• Automatic label generation
 
-dataset.yaml creation
+• dataset.yaml creation
 
 3. Model Training
 
-YOLOv8n (Ultralytics)
+• YOLOv8n (Ultralytics)
 
-Image size: 640
+• Image size: 640
 
-GPU-optimized configuration
+• GPU-optimized configuration
 
-4. Inference & Spatial Reconstruction
+**4. Inference & Spatial Reconstruction**
 
-Tile-based detection
+• Tile-based detection
 
-Bounding box extraction (xyxy format)
+• Bounding box extraction (xyxy format)
 
-Pixel → geographic coordinate transformation
+• Pixel → geographic coordinate transformation
 
-GeoJSON export of detected plants
+• GeoJSON export of detected plants
 
-5. Post-processing
+**5. Post-processing**
 
-Binary raster generation (plants = 1)
+• Binary raster generation (plants = 1)
 
-Centroid extraction
+• Centroid extraction
 
-NDVI computation per detected plant
+• NDVI computation per detected plant
 
-6. Performance Evaluation
+**6. Performance Evaluation**
 
 • Custom IoU-based matching implementation providing:
 
@@ -116,15 +116,16 @@ Matching is performed using a greedy IoU strategy (threshold ≥ 0.5).
 
 
 **How to Run**
-Install dependencies
+--> Install dependencies
 pip install -r requirements.txt
-Configure input paths
 
+--> Configure input paths
 In __main__:
 
 ortho_path = "path/to/orthomosaic.tif"
 train_polygons = "path/to/training_data.geojson"
-Execute full pipeline
+
+--> Execute full pipeline
 python script_detect.py
 
 
